@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import usersService from "../../services/usersService";
+import Adduser from "../user/Adduser";
 
 function Home() {
   const [users, setUsers] = useState([]);
+  const [showadduser, setshowadduser] = useState(false)
+
 
   const getUsers = async () => {
     try {
@@ -11,9 +14,14 @@ function Home() {
         setUsers(users);
       }
     } catch (error) {
-      console.log(error);
+      console.log("error => " + error);
     }
   };
+
+  const showadd = () => {
+    setshowadduser(true);
+    console.log("clicked");
+  }
 
   useEffect(() => {
     getUsers();
@@ -49,9 +57,13 @@ function Home() {
           <p>هیچ کاربری وجود ندارد</p>
         </div>
       )}
-      <div>
-        
-      </div>
+      {/* {
+        showadduser ? <Adduser /> : <div className={"row gx-2"}>
+          <div className={"col-1 p-1 ms-1"}>
+            <button className={"btn btn-warning"} onClick={() => showadd()}>افزودن کاربر</button>
+          </div>
+        </div>
+      } */}
     </div>
   );
 }
