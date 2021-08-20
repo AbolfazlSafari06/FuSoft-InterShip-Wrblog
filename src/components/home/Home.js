@@ -28,7 +28,7 @@ function Home() {
   }, []);
 
   return (
-    <div className="container py-5">
+    <div className="container py-5 my-4">
       <h2>کاربران</h2>
       {users.length > 0 ? (
         <table className="table table-bordered table-striped table-hover">
