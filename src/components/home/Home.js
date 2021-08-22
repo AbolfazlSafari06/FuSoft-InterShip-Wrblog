@@ -19,7 +19,7 @@ function Home() {
   };
 
   const showadd = () => {
-    setshowadduser(true);
+    setshowadduser(!showadduser);
     console.log("clicked");
   }
 
@@ -57,13 +57,13 @@ function Home() {
           <p>هیچ کاربری وجود ندارد</p>
         </div>
       )}
-      {/* {
+      {
         showadduser ? <Adduser /> : <div className={"row gx-2"}>
           <div className={"col-1 p-1 ms-1"}>
             <button className={"btn btn-warning"} onClick={() => showadd()}>افزودن کاربر</button>
           </div>
         </div>
-      } */}
+      }
     </div>
   );
 }

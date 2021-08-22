@@ -9,10 +9,10 @@ async function getAllUsers() {
     throw error;
   }
 }
-async function Create(Name, Email) {
+async function createNewUser(Name, Email) {
   try {
-    const resopnse =  http.post("users/create", { name: Name, email: Email });
-    return resopnse;
+    const {data} = await http.post("users/create", { name: Name,email: Email });
+    return data;
   } catch (error) {
     console.log(error);
     throw error;
@@ -20,5 +20,5 @@ async function Create(Name, Email) {
 }
 
 export default {
-  getAllUsers,Create
+  getAllUsers, createNewUser
 };
