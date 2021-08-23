@@ -1,41 +1,41 @@
-import { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import usersService from "../../services/usersService";
 
 
-function Adduser({show}) {
+function Updateuser({ id }) {
+
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
 
-    const Submit = async (e) => {
+    const Updat = async (e) => {
         if (name === "" || email === "") {
             alert("لطفا اطلاعات را کامل وارد کنید.")
             throw new Error();
         }
-        try {
-            console.log(name, email); 
-            var data = await usersService.createNewUser(name, email);
-            setName("");
-            setEmail("");
+        try { 
+            console.log(id);
+            var data = await usersService.upDateUser(id, name, email);
+            console.log(data);
         } catch (error) {
             console.log("error => " + error);
         }
-    }
+    };
 
     return (
         <div>
-            <form onSubmit={Submit}>
+            <form onSubmit={Updat}>
                 <div className="mb-3">
-                    <label htmlFor="exampleFormControlInput1" className="form-label">ایمیل</label>
+                    <label htmlFor="exampleFormControlInput1" className="form-label">امیل جدید</label>
                     <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" className={"form-control"} id="exampleFormControlInput1" placeholder="name@example.com" />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="exampleFormControlInput1" className="form-label">نام</label>
+                    <label htmlFor="exampleFormControlInput1" className="form-label">نام جدید</label>
                     <input value={name} onChange={(e) => { setName(e.target.value) }} type="text" className={"form-control"} id="exampleFormControlInput1" placeholder="نام کامل" />
                 </div>
-                <input value="انجام" type="submit" className="ms-2 btn btn-success"></input>
-                <button   className="btn btn-danger" onClick={ show }>لغو</button>
+                <input value="انجام" type="submit" className="btn btn-warning"></input>
             </form>
-        </div>
+        </div >
     )
 }
-export default Adduser;
+
+export default Updateuser;

@@ -3,10 +3,9 @@ import LastArticle from './lastArticle/LastArticle'
 
 function MainPage() {
     return (
-        <div>
+        <div style={{width:"100%"}}>
             <LastArticle />
-            <br/>
-
+            <br />
         </div>
     )
 }

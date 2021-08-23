@@ -2,7 +2,7 @@
 function Categories() {
   return (
 
-    <div class="container-lg ">
+    <div class="container-lg " style={{width:"100%"}}>
       <div class="row  row-cols-4 my-4 justify-content-center">
         <div class="col-4  my-2 mx-2  category shadow ">
           <p className={"fs-4 "}>

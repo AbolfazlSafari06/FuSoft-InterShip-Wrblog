@@ -11,14 +11,33 @@ async function getAllUsers() {
 }
 async function createNewUser(Name, Email) {
   try {
-    const {data} = await http.post("users/create", { name: Name,email: Email });
+    const { data } = await http.post("users/create", { name: Name, email: Email });
     return data;
   } catch (error) {
     console.log(error);
     throw error;
   }
 }
+async function deleteUser(id) {
+  console.log(id);
+  try {
+    const { data } = await http.delete(`users/Delete/${id}`);
+    return data;
+  } catch (error) {
+    console.log("Delete Eror => ", error);
+    throw error;
+  }
+}
+async function upDateUser(Id,Name, Email) {
+  try {
+    const { data } = await http.post(`users/update`,{id:Id,name:Name,email:Email});
+    return data;
+  } catch (error) {
+    console.log("Delete Eror => ", error);
+    throw error;
+  }
+}
 
 export default {
-  getAllUsers, createNewUser
+  getAllUsers, createNewUser, deleteUser ,upDateUser
 };

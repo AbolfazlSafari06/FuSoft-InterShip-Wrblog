@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function Header({ title }) {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light header"  >
+    <nav className="navbar navbar-expand-lg navbar-light bg-light backgroundcolor"  >
       <div className="container">
         <Link className="navbar-brand" to="/mainpage">
          وبلاگ

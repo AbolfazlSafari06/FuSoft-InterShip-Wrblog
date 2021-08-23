@@ -1,14 +1,11 @@
-.body {
-  background: linear-gradient(to right, rgb(218, 68, 83), rgb(137, 33, 107));
-}
 .article {
   margin-top: 1rem;
   box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
-}  
-.category{
+}
+.category {
   border: 1px solid rgb(82, 81, 81);
   background-color: rgba(238, 238, 238, 0.808);
-  border-radius: 5px; 
+  border-radius: 5px;
   height: 8rem;
   padding: 4rem;
   display: flex;
@@ -16,3 +13,12 @@
   justify-content: center;
   align-items: center;
 }
+.footer {
+  height: 5rem;
+  width: 100%; 
+  position: relative;
+  bottom: 0; 
+}
+.backgroundcolor {
+  background-color: rgba(216, 216, 216, 0.452) !important;
+} 
