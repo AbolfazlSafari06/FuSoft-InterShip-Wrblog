@@ -3,7 +3,7 @@ import React from 'react'
 function Footer() {
     return (
 
-        <footer className={"   py-4 footer backgroundcolor"}>
+        <footer className={"align-items-start  footer backgroundcolor"}>
             <div className={"row text-center"}>
                 <div className={"col"}>
                     <span>

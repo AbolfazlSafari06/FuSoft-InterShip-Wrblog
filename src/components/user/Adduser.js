@@ -22,7 +22,7 @@ function Adduser({show}) {
     }
 
     return (
-        <div>
+        <div className={"add-user"}>
             <form onSubmit={Submit}>
                 <div className="mb-3">
                     <label htmlFor="exampleFormControlInput1" className="form-label">ایمیل</label>

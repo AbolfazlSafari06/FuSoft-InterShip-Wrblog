@@ -3,7 +3,7 @@ import LastArticle from './lastArticle/LastArticle'
 
 function MainPage() {
     return (
-        <div style={{width:"100%"}}>
+        <div className={"body"} >
             <LastArticle />
             <br />
         </div>
