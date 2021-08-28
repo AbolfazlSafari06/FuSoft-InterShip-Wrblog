@@ -6,7 +6,7 @@ function Header() {
     return (
         <div id="header" className="row">
             <div className="col-2">
-                <Link to="/" className="text-dark">مشاهده وبسایت</Link>
+                <Link to="/" className="py-0 text-dark">مشاهده وبسایت</Link>
             </div>
             <div className="col-2">
                 <div className="dropdown">

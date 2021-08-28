@@ -18,11 +18,9 @@ async function createNewUser(Name, Email) {
     throw error;
   }
 }
-async function deleteUser(id) {
-  console.log(id);
+async function deleteUser(id) { 
   try {
-    const { data } = await http.delete(`users/Delete/${id}`);
-    return data;
+     await http.delete(`users/Delete/${id}`); 
   } catch (error) {
     console.log("Delete Eror => ", error);
     throw error;
