@@ -8,10 +8,10 @@ function Panellayout({ children }) {
     return (
         <div id="panelLayout">
             <div className="row">
-                <div className="col-lg-2">
+                <div className="col-3 col-lg-2" style={{paddingLeft:"0px"}}>
                     <SideBar />
                 </div>
-                <div className="col-lg-10" id="route-container" >
+                <div className="col-9 col-lg-10" id="route-container" >
                     <Header />
                     <div id="content">
                         {children}

@@ -1,6 +1,8 @@
 import React from 'react'
 import { Route, Switch } from "react-router-dom";
 import Panellayout from '../components/panells/Layout/layout';
+import CreateUser from '../components/panells/Users/CreateUser';
+import EditUser from '../components/panells/Users/EditUser';
 import User from "../components/panells/Users/User";
 
 
@@ -9,8 +11,14 @@ function PanellRoute() {
     return (
         <Panellayout>
             <Switch>
-                <Route path="/panel/users">
+                <Route exact path="/panel/users">
                     <User />
+                </Route>
+                <Route exact path="/panel/users/create">
+                    <CreateUser />
+                </Route>
+                <Route exact path="/panel/users/:id/edit">
+                    <EditUser />
                 </Route>
             </Switch>
         </Panellayout>

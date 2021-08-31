@@ -10,7 +10,7 @@ function Header() {
             </div>
             <div className="col-2">
                 <div className="dropdown">
-                    <div className="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div  className="dropdown-toggle my-2" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                         خوش آمدید
                     </div>
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">

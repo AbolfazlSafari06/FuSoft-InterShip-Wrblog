@@ -1,8 +1,9 @@
 import http from "./base";
 
-async function getAllUsers() {
+async function getAllUsers(query = "", sort = "", page = 1, perPage = 15) {
   try {
-    const { data } = await http.get("users/getlist");
+    const { data } = await http.get(`users/getlist?query=${query}&sort=${sort}&page=${page}&perPage=${perPage}`);
+    console.log(`users/getlist?query=${query}&sort=${sort}&page=${page}&perPage=${perPage}`);
     return data;
   } catch (error) {
     console.log(error);
@@ -11,24 +12,33 @@ async function getAllUsers() {
 }
 async function createNewUser(Name, Email) {
   try {
-    const { data } = await http.post("users/create", { name: Name, email: Email });
+    const data = await http.post("users/create", { name: Name, email: Email });
     return data;
   } catch (error) {
-    console.log(error);
+    // console.log();
     throw error;
   }
 }
-async function deleteUser(id) { 
+async function deleteUser(id) {
   try {
-     await http.delete(`users/Delete/${id}`); 
+    await http.delete(`users/Delete/${id}`);
   } catch (error) {
     console.log("Delete Eror => ", error);
     throw error;
   }
 }
-async function upDateUser(Id,Name, Email) {
+async function upDateUser(Id, Name, Email) {
   try {
-    const { data } = await http.post(`users/update`,{id:Id,name:Name,email:Email});
+    const { data } = await http.post(`users/update`, { id: Id, name: Name, email: Email });
+    return data;
+  } catch (error) {
+    console.log("Delete Eror => ", error);
+    throw error;
+  }
+}
+async function getUser(Id) {
+  try {
+    const { data } = await http.post(`users/get/${Id}`);
     return data;
   } catch (error) {
     console.log("Delete Eror => ", error);
@@ -37,5 +47,5 @@ async function upDateUser(Id,Name, Email) {
 }
 
 export default {
-  getAllUsers, createNewUser, deleteUser ,upDateUser
+  getAllUsers, createNewUser, deleteUser, upDateUser, getUser
 };
