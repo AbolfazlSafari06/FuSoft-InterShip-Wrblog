@@ -22,7 +22,7 @@ function EditUser() {
         try {
             if (!Loading) {
                 setLoading(true);
-                await usersService.upDateUser(id, date.name, date.email)
+                await usersService.upDateUser(id, date.name, date.email, date.password)
                 setmessage("کاربر با موفقیت ثبت شد.")
                 setLoading(false);
             }
@@ -82,6 +82,15 @@ function EditUser() {
                         <div className="mb-3">
                             <label htmlFor="email" className="form-label">ایمیل</label>
                             <input type="email" className={`form-control  ${errors?.email?.message ? "is-invalid" : ""} `} id="email" name="email"   {...register("email", { required: "ایمیل کاربر الزامیست." })} />
+                            <div className="invalid-feedback">
+                                {errors?.email?.message}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-12 col-md-6">
+                        <div className="mb-3">
+                            <label htmlFor="password" className="form-label"> جدید رمز عبور</label>
+                            <input type="password" className={`form-control  ${errors?.password?.message ? "is-invalid" : ""} `} id="email" name="email"   {...register("password", { required: "رمز عبور کاربر الزامیست." })} />
                             <div className="invalid-feedback">
                                 {errors?.email?.message}
                             </div>

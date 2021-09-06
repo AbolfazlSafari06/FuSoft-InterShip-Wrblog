@@ -5,7 +5,7 @@ function Header({ title }) {
     <nav className="navbar navbar-expand-lg navbar-light bg-light backgroundcolor"  >
       <div className="container">
         <Link className="navbar-brand" to="/mainpage">
-         وبلاگ
+          وبلاگ
         </Link>
         <button
           className="navbar-toggler"
@@ -19,7 +19,7 @@ function Header({ title }) {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav"> 
+          <ul className="navbar-nav">
             <li className="nav-item">
               <Link className="nav-link" to="categories">
                 دسته بندی ها
@@ -37,6 +37,9 @@ function Header({ title }) {
             </li>
           </ul>
         </div>
+        <Link to="/auth" className="btn btn-primary">
+          ورود / ثبت نام
+        </Link>
       </div>
     </nav>
   );

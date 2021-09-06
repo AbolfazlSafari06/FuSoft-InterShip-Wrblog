@@ -4,6 +4,7 @@ import Alert from "../../../common/Alert/Alert";
 import usersService from "../../../services/usersService";
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import Pagination from '../../../common/Pagination';
 
 
 function User() {
@@ -11,16 +12,23 @@ function User() {
   const [loading, setloading] = useState(false);
   const [message, setmessage] = useState("")
   const [Error, setError] = useState("")
-  const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
+  const [totalUesrs, settotalUesrs] = useState(100)
+  const [page, setPage] = useState(1)
 
-  const getUsers = async (query = "", sort = "") => {
+
+  const { register, handleSubmit, reset, watch, getValues, formState: { errors } } = useForm();
+
+  const getUsers = async (query = "", sort = "oldest", page = 1) => {
     try {
-      setloading(false);
-      const users = await usersService.getAllUsers(query, sort); 
+      setloading(true);
+      const users = await usersService.getAllUsers(query, sort, page);
+      console.log("users ", users);
       if (Array.isArray(users.data)) {
         setUsers(users.data);
+        settotalUesrs(users.totalAnount)
+        // setPage(users.) 
       }
-      setloading(true); 
+      setloading(false);
     } catch (error) {
       console.log("error => " + error);
       setloading(false);
@@ -35,10 +43,12 @@ function User() {
 
   }
   const onFilterReseet = () => {
-
+    reset();
+    getUsers();
   }
+
   const renderContent = () => {
-    if (!loading) {
+    if (loading) {
       return (
         <div className="p-5 text-center">
           Loading...
@@ -83,26 +93,32 @@ function User() {
     }
   }
 
-  useEffect(() => {  
-  }, [users]);
+  console.log(" math ", Math.floor(totalUesrs / 15));
 
+  useEffect(() => {
+    getUsers();
+  }, []);
 
   const onDeleteuser = async (id) => {
     try {
+      setloading(true);
       if (window.confirm("آیا مطمئن هستید؟")) {
         await usersService.deleteUser(id);
         await getUsers();
         setmessage("کاربر با موفقیت پاک شد.")
         setloading(false);
-      }
-
+      } 
     } catch (error) {
       setError("عملیات با موفقیت انجام نشد.")
       setloading(false);
     }
   }
 
-
+  const onPageClick = (page) => {
+    console.log("pageclick is clicked");
+    setPage(page)
+    getUsers(getValues("query"), getValues("sort"), page);
+  }
   return (
     <div className="container py-3 my-4 h-100" style={{ width: "100%" }}>
       <div className="row mb-5">
@@ -136,23 +152,7 @@ function User() {
       <Alert type="success" message={message} onClose={() => setmessage("")} ></Alert>
       <Alert type="danger" message={Error} onClose={() => setError("")} ></Alert>
       {renderContent()}
-      <nav aria-label="Page navigation example">
-        <ul className="pagination">
-          <li className="page-item">
-            <a className="page-link" href="#" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-          <li className="page-item"><a className="page-link" href="#">1</a></li>
-          <li className="page-item"><a className="page-link" href="#">2</a></li>
-          <li className="page-item"><a className="page-link" href="#">3</a></li>
-          <li className="page-item">
-            <a className="page-link" href="#" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
+      <Pagination total={totalUesrs} currentPage={page} perPage={15} onPageClick={onPageClick}></Pagination>
     </div >
   );
 }

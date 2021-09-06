@@ -16,7 +16,7 @@ function CreateUser() {
         try {
             if (!loading) {
                 setloading(true);
-                var date = await usersService.createNewUser(date.name, date.email)
+                var date = await usersService.createNewUser(date.name, date.email,date.password)
                 reset();
                 setmessage("کاربر با موفقیت ایجاد شد.")
                 setloading(false);
@@ -57,6 +57,23 @@ function CreateUser() {
                                     {errors?.email?.message}
                                 </div>
 
+                            </div>
+                        </div>
+                        <div className="col-12 col-md-6">
+                            <div className="mb-3">
+                                <label htmlFor="password" className="form-label">رمز عبور</label>
+                                <input type="password" className={`form-control  ${errors?.password?.message ? "is-invalid" : ""} `} id="email" name="email"   {...register("password", {
+                                    required: "لطفا رمز عبور کاربر را وارد کنید",
+                                    pattern: {
+                                        value:
+                                            /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/,
+                                        message:
+                                            "رمز عبور باید شامل حروف، عدد و حداقل یک کاراکتر خاص باشد",
+                                    },
+                                })} />
+                                <div className="invalid-feedback">
+                                    {errors?.email?.message}
+                                </div>
                             </div>
                         </div>
                     </div>

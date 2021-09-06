@@ -1,9 +1,10 @@
 import React from 'react'
-import { Route, Switch } from "react-router-dom";
+import {   Switch } from "react-router-dom";
 import Panellayout from '../components/panells/Layout/layout';
 import CreateUser from '../components/panells/Users/CreateUser';
 import EditUser from '../components/panells/Users/EditUser';
 import User from "../components/panells/Users/User";
+import Route from "./Route";
 
 
 
