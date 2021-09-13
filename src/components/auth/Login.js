@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import authservice from '../../services/authservice';
 import Alert from '../../common/Alert/Alert';
 import { useState } from 'react';
+import './style.scss'
 
 function Login() {
     const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
@@ -15,7 +16,8 @@ function Login() {
         try {
             console.log(form.email, form.password);
             setLoading(true);
-            const data = await authservice.Register(form.email, form.password)
+            const data = await authservice.Login(form.email, form.password)
+            console.log(data);
             setLoading(true);
 
         } catch (error) {
@@ -51,6 +53,7 @@ function Login() {
                 </form>
                 <div className="text-center fs-6 py-3">
                     <Link to="/auth/login"> ورود</Link>
+                    <Link id="registerlink" to="/auth/register"> ثبت نام</Link>
                 </div>
             </div>
             <div className="my-3 text-white text-center   fs-6 fc-primary">

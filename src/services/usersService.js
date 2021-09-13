@@ -1,6 +1,6 @@
 import http from "./base";
 
-async function getAllUsers(query, sort, page = 1, perPage = 15) { 
+async function getAllUsers(query, sort, page = 1, perPage = 15) {
   try {
     const { data } = await http.get(`users/getlist?query=${query}&sort=${sort}&page=${page}&perPage=${perPage}`);
     return data;
@@ -9,9 +9,9 @@ async function getAllUsers(query, sort, page = 1, perPage = 15) {
     throw error;
   }
 }
-async function createNewUser(name, email, password) {
+async function createNewUser(name, email, password, IsAdmin) {
   try {
-    const data = await http.post("users/create", { name, email, password });
+    const data = await http.post("users/create", { name, email, password, IsAdmin });
     return data;
   } catch (error) {
     // console.log();
@@ -25,9 +25,9 @@ async function deleteUser(id) {
     throw error;
   }
 }
-async function upDateUser(id, name, email, password) {
+async function upDateUser(id, name, email, password, IsAdmin) {
   try {
-    const { data } = await http.post(`users/update`, { id, name, email, password });
+    const { data } = await http.post(`users/update`, { id, name, email, password, IsAdmin });
     return data;
   } catch (error) {
     throw error;

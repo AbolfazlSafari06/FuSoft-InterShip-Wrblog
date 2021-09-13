@@ -14,6 +14,7 @@ function Register() {
         try {
             setLoading(true);
             const data = await authservice.Register(form.name, form.email, form.password, form.repassword)
+            console.log(data);
             setLoading(true);
 
         } catch (error) {

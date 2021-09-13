@@ -1,5 +1,6 @@
 import React from 'react'
-import {   Switch } from "react-router-dom";
+import { Switch } from "react-router-dom";
+import Categories from '../components/categories/Categories';
 import Panellayout from '../components/panells/Layout/layout';
 import CreateUser from '../components/panells/Users/CreateUser';
 import EditUser from '../components/panells/Users/EditUser';
@@ -20,6 +21,9 @@ function PanellRoute() {
                 </Route>
                 <Route exact path="/panel/users/:id/edit">
                     <EditUser />
+                </Route>
+                <Route exact path="panel/categories">
+                    <Categories />
                 </Route>
             </Switch>
         </Panellayout>

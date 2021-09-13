@@ -16,7 +16,7 @@ function CreateUser() {
         try {
             if (!loading) {
                 setloading(true);
-                var date = await usersService.createNewUser(date.name, date.email,date.password)
+                var date = await usersService.createNewUser(date.name, date.email, date.password, date.IsAdmin)
                 reset();
                 setmessage("کاربر با موفقیت ایجاد شد.")
                 setloading(false);
@@ -62,7 +62,7 @@ function CreateUser() {
                         <div className="col-12 col-md-6">
                             <div className="mb-3">
                                 <label htmlFor="password" className="form-label">رمز عبور</label>
-                                <input type="password" className={`form-control  ${errors?.password?.message ? "is-invalid" : ""} `} id="email" name="email"   {...register("password", {
+                                <input type="password" className={`form-control  ${errors?.password?.message ? "is-invalid" : ""} `} id="password" name="password"   {...register("password", {
                                     required: "لطفا رمز عبور کاربر را وارد کنید",
                                     pattern: {
                                         value:
@@ -73,6 +73,16 @@ function CreateUser() {
                                 })} />
                                 <div className="invalid-feedback">
                                     {errors?.email?.message}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-12">
+                            <div className="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="IsAdminCheck"   {...register("IsAdmin")} />
+                                    <label class="form-check-label" for="IsAdminCheck">
+                                        آیا مدیر است؟
+                                    </label>
                                 </div>
                             </div>
                         </div>

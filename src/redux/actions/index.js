@@ -1,4 +1,4 @@
-import { LOGIN, LOGIN, REGISTER } from "./type"
+import { LOGIN, LOGOUT, REGISTER } from "./type"
 
 export const login = (user) => {
     return {
@@ -6,7 +6,7 @@ export const login = (user) => {
         payLoad: user
     }
 }
-export const logout = () => {
+export const logout = (user) => {
     return {
         type: LOGOUT,
         payLoad: user

@@ -5,9 +5,10 @@ import { Link, useParams } from 'react-router-dom';
 import usersService from '../../../services/usersService';
 import { useForm } from 'react-hook-form';
 import Alert from "../../../common/Alert/Alert";
+import { connect } from "react-redux";
 
 
-function EditUser() {
+function EditUser({ useRedux }) {
 
     const { id } = useParams()
 
@@ -22,7 +23,7 @@ function EditUser() {
         try {
             if (!Loading) {
                 setLoading(true);
-                await usersService.upDateUser(id, date.name, date.email, date.password)
+                await usersService.upDateUser(id, date.name, date.email, date.password, date.IsAdmin)
                 setmessage("کاربر با موفقیت ثبت شد.")
                 setLoading(false);
             }
@@ -96,6 +97,16 @@ function EditUser() {
                             </div>
                         </div>
                     </div>
+                    <div className="col-12">
+                        <div className="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value={useRedux?.IsAdmin} id="IsAdminCheck"   {...register("IsAdmin")} />
+                                <label class="form-check-label" for="IsAdminCheck">
+                                    آیا مدیر است؟
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <button disabled={Loading} className="btn btn-primary" type="submit">ذخیره</button>
             </form>
@@ -105,4 +116,10 @@ function EditUser() {
     )
 }
 
-export default EditUser
+const mapState = (state) => {
+    return {
+        useRedux: state?.user
+    }
+}
+
+export default connect(mapState, null)(EditUser);

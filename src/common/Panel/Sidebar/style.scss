@@ -1,24 +1,43 @@
-#sidebar{  
-    background-color: #333;
-    color: white;
-    overflow: auto;
-    height: 100vh;
-    padding: 20px;
-    ul{
-        margin:0; 
-        padding: 0;
-        list-style-type: none; 
-        a{
-            border-radius: 10px;
-            text-decoration: none;
-            color: white;
-            display: block;
-            padding: 10px 5px;
-            transition: 0.4s ease all;
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
 
-            &:hover{
-                background-color: rgb(99, 96, 96); 
-            }
-        } 
+#sidebar {
+  width: 250px;
+  min-width: 250px;
+  background: #333;
+  color: white;
+  height: 100vh;
+  overflow: auto;
+  padding: 10px;
+  transition: all ease 0.4s;
+  @include media-breakpoint-down(sm) {
+    margin-right: -250px; 
+    position: absolute;
+    &.open {
+      margin-right: 0;
     }
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    li.active {
+      a {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+    }
+    a {
+      text-decoration: none;
+      color: #eee;
+      display: block;
+      padding: 10px 15px;
+      border-radius: 5px;
+      transition: all ease 0.2s;
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        color: #fff;
+      }
+    }
+  }
 }
