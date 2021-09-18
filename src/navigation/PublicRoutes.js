@@ -17,10 +17,7 @@ function PublicRoutes() {
             <Switch>
                 <Route exact path="/mainpage">
                     <MainPage />
-                </Route>
-                {/* <Route exact path="/users">
-                    <Home />
-                </Route> */}
+                </Route> 
                 <Route exact path="/categories">
                     <Categories />
                 </Route>

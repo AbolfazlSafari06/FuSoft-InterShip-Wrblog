@@ -39,7 +39,6 @@ function User() {
   const onFilterSubmit = (data) => {
 
     getUsers(data.query, data.sort)
-    console.log(data.query, data.sort);
 
   }
   const onFilterReseet = () => {

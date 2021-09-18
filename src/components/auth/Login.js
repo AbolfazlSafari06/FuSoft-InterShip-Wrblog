@@ -17,8 +17,8 @@ function Login() {
             console.log(form.email, form.password);
             setLoading(true);
             const data = await authservice.Login(form.email, form.password)
-            console.log(data);
-            setLoading(true);
+            console.log("data from  login comp => ", data);
+            setLoading(false);
 
         } catch (error) {
             setError("خطا در ورود کاربر");
