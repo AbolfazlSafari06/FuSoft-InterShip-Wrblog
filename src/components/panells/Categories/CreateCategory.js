@@ -23,7 +23,7 @@ function CreateCategory() {
         let order = 0;
         try {
             setloading(true)
-            // const parents = await CategoryService.createNewCategory(data.categoryName, order, parentId);
+            const parents = await CategoryService.createNewCategory(data.categoryName, order, parentId);
             setParentId()
             setmessage("دسته بندی با موفقیت ایجاد شد.")
             setloading(false)
