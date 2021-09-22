@@ -12,7 +12,7 @@ function User() {
   const [loading, setloading] = useState(false);
   const [message, setmessage] = useState("")
   const [Error, setError] = useState("")
-  const [totalUesrs, settotalUesrs] = useState(100)
+  const [totalUesrs, settotalUesrs] = useState(1)
   const [page, setPage] = useState(1)
 
 
@@ -37,7 +37,6 @@ function User() {
 
 
   const onFilterSubmit = (data) => {
-
     getUsers(data.query, data.sort)
 
   }
@@ -56,31 +55,34 @@ function User() {
     }
     if (users.length > 0) {
       return (
-        <table className="table table-bordered table-striped table-hover text-nowrap">
-          <thead>
-            <tr>
-              <td>#</td>
-              <td>نام کاربر</td>
-              <td>ایمیل کاربر</td>
-              <td>عملیات</td>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user) => {
-              return (
-                <tr key={`user-${user.id}`}>
-                  <td>{users.indexOf(user) + 1}</td>
-                  <td>{user.name}</td>
-                  <td>{user.email}</td>
-                  <td>
-                    <Link to={`/panel/users/${user.id}/edit`} className={"btn btn-success mx-2 ms-2"}  >ویرایش</Link>
-                    <button onClick={() => onDeleteuser(user.id)} className={"btn btn-danger mx-2 ms-2"}  >حدف</button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <div  className="overflow-auto"> 
+          <table className="table table-bordered table-striped table-hover text-nowrap ">
+            {/* <table className="table"> */}
+            <thead>
+              <tr>
+                <td>#</td>
+                <td>نام کاربر</td>
+                <td>ایمیل کاربر</td>
+                <td>عملیات</td>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((user) => {
+                return (
+                  <tr key={`user-${user.id}`}>
+                    <td>{users.indexOf(user) + 1}</td>
+                    <td>{user.name}</td>
+                    <td>{user.email}</td>
+                    <td>
+                      <Link to={`/panel/users/${user.id}/edit`} className={"btn btn-success mx-2 ms-2"}  >ویرایش</Link>
+                      <button onClick={() => onDeleteuser(user.id)} className={"btn btn-danger mx-2 ms-2"}  >حدف</button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       )
     } else {
       return (
@@ -91,8 +93,6 @@ function User() {
       )
     }
   }
-
-  console.log(" math ", Math.floor(totalUesrs / 15));
 
   useEffect(() => {
     getUsers();
@@ -106,7 +106,7 @@ function User() {
         await getUsers();
         setmessage("کاربر با موفقیت پاک شد.")
         setloading(false);
-      } 
+      }
     } catch (error) {
       setError("عملیات با موفقیت انجام نشد.")
       setloading(false);
@@ -150,8 +150,11 @@ function User() {
       </div>
       <Alert type="success" message={message} onClose={() => setmessage("")} ></Alert>
       <Alert type="danger" message={Error} onClose={() => setError("")} ></Alert>
-      {renderContent()}
-      <Pagination total={totalUesrs} currentPage={page} perPage={15} onPageClick={onPageClick}></Pagination>
+      <div className="border mb-3">
+        {renderContent()}
+
+      </div>
+      <Pagination total={totalUesrs} currentPage={page} perPage={1} onPageClick={onPageClick}></Pagination>
     </div >
   );
 }

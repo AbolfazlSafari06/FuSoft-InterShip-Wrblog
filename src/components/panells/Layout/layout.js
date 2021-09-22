@@ -21,7 +21,7 @@ function Panellayout({ children }) {
             <SideBar onToggelSidebars={onToggelSidebar} open={isSidebarOpen} />
             <div className="flex-grow-1" id="route-container" >
                 <Header onToggelSidebars={onToggelSidebar} />
-                <div id="content" className="container py-3">
+                <div id="content" className="container-fluid py-3">
                     {children}
                 </div>
                 <Footer />

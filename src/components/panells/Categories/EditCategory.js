@@ -25,7 +25,7 @@ function EditCategory() {
     const onSubmit = async (date) => {
         try {
             setLoading(true);
-            // await CategoryService.upDateCategories(id, date.title, date.order, Parentid)
+            await CategoryService.upDateCategories(id, date.title, date.order, Parentid)
 
             setmessage("دسته بندی با موفقیت ویرایش  شد.")
             setLoading(false);
@@ -69,13 +69,21 @@ function EditCategory() {
         <div className="container-md">
             <Alert type="success" message={message} onClose={() => setmessage("")} ></Alert>
             <Alert type="danger" message={Error} onClose={() => setError("")} ></Alert>
+            <div className="row mb-5">
+                <div className="col-2 offset-8">
+                    <h2>دسته بندی ها</h2>
+                </div>
+                <div className="col-2 text-center">
+                    <Link to="/panel/categories" className="btn btn-primary">بازگشت</Link>
+                </div>
+            </div>
             <div className="row my-5">
                 <div className="col-8 offset-2 col-md-4 offset-md-6">
                     <h4>ویرایش دسته بندی</h4>
                 </div>
             </div>
             <div className="row my-5">
-                <GetParentCategory setparentId={setParent} />
+                <GetParentCategory setparentId={setParent} title={"دسته بندی پدر را انتخاب کنید"} />
             </div>
             <div className="row my-5">
                 {

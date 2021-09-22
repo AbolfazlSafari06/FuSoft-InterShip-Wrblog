@@ -6,6 +6,7 @@ import usersService from '../../../services/usersService';
 import { useForm } from 'react-hook-form';
 import Alert from "../../../common/Alert/Alert";
 import { connect } from "react-redux";
+import { Redirect } from 'react-router-dom';
 
 
 function EditUser({ useRedux }) {
@@ -25,6 +26,7 @@ function EditUser({ useRedux }) {
                 setLoading(true);
                 await usersService.upDateUser(id, date.name, date.email, date.password, date.IsAdmin)
                 setmessage("کاربر با موفقیت ثبت شد.")
+               
                 setLoading(false);
             }
         } catch (error) {

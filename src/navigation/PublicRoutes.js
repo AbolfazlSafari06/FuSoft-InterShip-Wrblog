@@ -8,6 +8,7 @@ import About from "../components/other/About";
 import Header from "../common/Header";
 import Footer from "../common/Footer/Footer";
 import Route from "./Route";
+import ArticleVew from './../View/ArticleVew';
 
 
 function PublicRoutes() {
@@ -26,6 +27,9 @@ function PublicRoutes() {
                 </Route>
                 <Route path="/about">
                     <About />
+                </Route>
+                <Route path="/article/view/:id">
+                    <ArticleVew />
                 </Route>
             </Switch>
             <Footer />

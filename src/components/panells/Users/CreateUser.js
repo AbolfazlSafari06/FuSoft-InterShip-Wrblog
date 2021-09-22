@@ -71,7 +71,7 @@ function CreateUser() {
                                     },
                                 })} />
                                 <div className="invalid-feedback">
-                                    {errors?.email?.message}
+                                    {errors?.password?.message}
                                 </div>
                             </div>
                         </div>

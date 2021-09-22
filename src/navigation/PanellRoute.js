@@ -10,8 +10,8 @@ import CreateCategory from './../components/panells/Categories/CreateCategory';
 import EditCategory from './../components/panells/Categories/EditCategory';
 import Article from '../components/panells/Article/Article';
 import CreateArticle from './../components/panells/Article/CreateArticle';
-
-
+import EditArticle from './../components/panells/Article/EditArticle'; 
+import Comments from '../components/panells/Comments/Comments';
 
 function PanellRoute() {
     return (
@@ -40,6 +40,12 @@ function PanellRoute() {
                 </Route>
                 <Route exact path="/panel/articles/create"> 
                     <CreateArticle/>
+                </Route>
+                <Route exact path="/panel/article/:id/edit"> 
+                    <EditArticle />
+                </Route>
+                <Route exact path="/panel/comments"> 
+                    <Comments />
                 </Route>
             </Switch>
         </Panellayout>

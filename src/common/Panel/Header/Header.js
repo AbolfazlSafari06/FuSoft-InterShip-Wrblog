@@ -14,20 +14,17 @@ function Header({ onToggelSidebars }) {
     }
 
     return (
-        <div id="header" className="row">
-            <div className="col-2 d-sm-none">
-                <button className="  btn btn-light ms-4 d-sm-none" onClick={() => onToggelSidebars(true)}>
-                    <i className="fa fa-bars" />
-                </button>
+        // <div id="header" className="container ">
+        <div id="header" className="navbar navbar-expand-lg navbar-light bg-light backgroundcolor">
+            <div className="d-inline">
+                <button className="  btn btn-light ms-4 d-sm-none fa fa-bars" onClick={() => onToggelSidebars(true)}/> 
             </div>
             <div className="col-2 offset-6 offset-sm-8">
-                <Link to="/" className="py-0 text-dark ">
-                   
-                        مشاهده وبسایت
-                    
+                <Link to="mainpage" className="py-0 text-dark "> 
+                        مشاهده وبسایت 
                 </Link>
             </div>
-            <div className="col-2 ">
+            <div className="d-inline ms-1">
                 <div className="dropdown">
                     <div className="dropdown-toggle my-2" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                         خوش آمدید

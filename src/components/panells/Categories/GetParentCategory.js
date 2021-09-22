@@ -5,18 +5,18 @@ import CategoryService from '../../../services/CategoryService';
 import Alert from './../../../common/Alert/Alert';
 
 
-function GetParentCategory({ setparentId }) {
+function GetParentCategory({ title, setparentId }) {
 
     const { register, handleSubmit, setValue, reset, watch, formState: { errors } } = useForm();
     const [nullArray, setnullArray] = useState(false)
     const [error, setError] = useState("");
     const [ParentCategorty, setParentCategorty] = useState()
-    const [FinalParentitel, setFinalParentitel] = useState()
 
 
 
     const getParents = async (data) => {
         try {
+            console.log("data => ", data);
             const parents = await CategoryService.getParentCategory(data.name);
             if (Array.isArray(parents)) {
                 if (parents.length === 0) { setnullArray(true) }
@@ -33,20 +33,17 @@ function GetParentCategory({ setparentId }) {
         setParentCategorty()
     }
     return (
-        <div>
+        <div> 
             <Alert type="danger" message={error} onClose={() => setError("")} ></Alert>
-            <form on onSubmit={handleSubmit(getParents)}>
+            <form className="container-fluid" onSubmit={handleSubmit(getParents)}>
                 <div className="row alig  d-flex align-items-center">
                     <div className="col-8 col-md-4 offset-2 offset-md-6">
-                        <h4 className="my-4">دسته بندی پدر را انتخاب کنید</h4>
+                        <label htmlFor="name" className="form-label">{title}  </label>
                     </div>
-                    <div className="col-2 ">
-                        <Link to="/panel/categories" className="btn btn-primary">بازگشت</Link>
+                    <div style={{ direction: "ltr" }} className="input-group ">
+                        <input type="submit" className="btn btn-primary col-2" value="جستجو کنید" />
+                        <input style={{ direction: "rtl" }} className="col-8 form-control border" type="text" name="name" id="name" {...register("name", { required: "عنوان را وارد کنید" })} />
                     </div>
-                </div>
-                <div style={{ direction: "ltr" }} className="input-group mb-3">
-                    <input type="submit" className="btn btn-primary col-2" value="جستجو کنید" />
-                    <input style={{ direction: "rtl" }} className="col-8 form-control border" type="text" name="name" id="name" {...register("name", { required: "عنوان را وارد کنید" })} />
                 </div>
                 <div className="invalid-feedback">
                     {errors?.name?.message}
@@ -54,8 +51,8 @@ function GetParentCategory({ setparentId }) {
                 {
                     nullArray ? <div>دسته بندی با این عنوان پیدا نشد</div> : null
                 }
-            </form>
-            <div className="container">
+            </form >
+            <div className="container-fluid">
                 {
                     ParentCategorty && <div>
                         {
@@ -72,9 +69,8 @@ function GetParentCategory({ setparentId }) {
                         }
                     </div>
                 }
-            </div>
-
-        </div>
+            </div> 
+        </div >
     )
 }
 

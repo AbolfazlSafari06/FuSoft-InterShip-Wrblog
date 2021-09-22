@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Pagination({ total, perPage, currentPage, onPageClick }) {
-    const pages = Math.ceil(total / perPage);
+function Pagination({ total, perPage, currentPage, onPageClick }) { 
+    // console.log("total",total);
+    const pages = Math.floor(total / perPage); 
+    // console.log("pages",pages);
+
     const renderPages = () => {
         return [...Array(pages)].map((item, index) => {
             return (

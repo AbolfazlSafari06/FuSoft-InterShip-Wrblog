@@ -10,8 +10,7 @@ function SideBar({ open, onToggelSidebars }) {
         <div id="sidebar" className={`${open ? "open" : ""}`}>
             <div className="mb-3 pb-3 d-sm-none border-bottom">
                 <button className="btn btn-light d-sm-none" onClick={() => onToggelSidebars(false)}>
-                    <i className="fa fa-times" />
-
+                    <i className="fa fa-times" /> 
                 </button>
             </div>
             <ul className="list-group">

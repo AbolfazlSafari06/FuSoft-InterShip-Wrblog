@@ -4,8 +4,7 @@ import { store } from "../redux/store";
 import { login as reduxLogin, register as reduxRegister, logout as reduxLogout } from "../redux/actions";
 
 async function Login(email, password) {
-    try {
-        console.log("data => ");
+    try { 
         const { data } = await http.post(
             "auth/login",
             { email, password }

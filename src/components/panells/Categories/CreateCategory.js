@@ -21,10 +21,11 @@ function CreateCategory() {
 
     const onSubmit = async (data) => {
         let order = 0;
-        try {
+        try { 
             setloading(true)
             const parents = await CategoryService.createNewCategory(data.categoryName, order, parentId);
             setParentId()
+            reset()
             setmessage("دسته بندی با موفقیت ایجاد شد.")
             setloading(false)
         } catch (error) {
@@ -39,8 +40,16 @@ function CreateCategory() {
     }
     return (
         <div className="container-sm ">
+             <div className="row mb-5">
+                    <div className="col-2 offset-8">
+                        <h2>دسته بندی ها</h2>
+                    </div>
+                    <div className="col-2 text-center">
+                        <Link to="/panel/categories" className="btn btn-primary">بازگشت</Link>
+                    </div>
+                </div>
             <div className="row">
-                <GetParentCategory setparentId={setparentId} />
+                <GetParentCategory  title={"دسته بندی پدر را انتخاب کنید"} setparentId={setparentId} />
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <h4 className="my-4">نام دسته بندی را انتخاب کنید : </h4>
                     <input type="text" className={`form-control $${errors?.categoryName?.message ? "is-invalid" : ""} `} id="categoryName" name="categoryName" placeholder="نام دسته بندی"  {...register("categoryName", { required: "نام دسته بندی الزامیست", maxLength: 100, minLength: 3 })} />

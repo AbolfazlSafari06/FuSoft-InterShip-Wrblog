@@ -1,6 +1,6 @@
 import http from "./base";
 
-async function getAllUsers(query, sort, page = 1, perPage = 15) {
+async function getAllUsers(query, sort, page = 1, perPage = 1) {
   try {
     const { data } = await http.get(`users/getlist?query=${query}&sort=${sort}&page=${page}&perPage=${perPage}`); 
     return data;

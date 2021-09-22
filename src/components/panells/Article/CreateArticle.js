@@ -1,30 +1,34 @@
+import GetParentCategory from './../Categories/GetParentCategory';
 import articleService from '../../../services/articleService';
 import usersService from "../../../services/usersService";
 import Alert from "../../../common/Alert/Alert";
 
-import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { useEffect, useState } from "react";
 import { useForm, Controller } from 'react-hook-form';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
+import { connect } from "react-redux";
 import React from 'react'
 
-
-function CreateArticle() {
+function CreateArticle({ user }) {
     const [message, setmessage] = useState("");
     const [content, setContent] = useState("")
     const [Error, setError] = useState("");
+    const [parentCategoryId, setparentCategoryId] = useState()
     const [loading, setloading] = useState(false);
 
-    const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
-    const onSubmit = async (date) => {
+    const { register, setValue, control, reset, handleSubmit, formState: { errors } } = useForm();
+    const onSubmit = async (data) => {
+        console.log(data);
         try {
             if (!loading) {
                 setloading(true);
-                // var date = await articleService.createNewArticle(date.name, date.email, date.password, date.IsAdmin)
-                console.log(errors);
-                reset();
+                console.log(data);
+                var date = await articleService.createNewArticle(data.name, data.shortdescription, data.body, +data.showArticle, user.id, parentCategoryId)
+                await articleService.uploadImage(data.image[0])
                 setmessage("مقاله با موفقیت ایجاد شد.")
+                reset();
                 setloading(false);
             }
         } catch (error) {
@@ -33,6 +37,13 @@ function CreateArticle() {
             setloading(false)
         }
     };
+
+    useEffect(() => {
+        register("body", {
+            required: true,
+        });
+    }, []);
+
     return (
         <div>
             <div className="container py-3 my-4 h-100" style={{ width: "100%" }}>
@@ -44,12 +55,13 @@ function CreateArticle() {
                         <Link to="/panel/articles" className="btn btn-primary">بازگشت</Link>
                     </div>
                 </div>
+                <GetParentCategory title={"دسته بندی را انتخاب کنید"} setparentId={setparentCategoryId} />
                 <form onSubmit={handleSubmit(onSubmit)} className=" my-4">
                     <div className="row">
                         <div className="col-12 ">
                             <div className="mb-3">
                                 <label htmlFor="name" className="form-label">نام مقاله</label>
-                                <input type="text" className={`form-control  ${errors?.name?.message ? "is-invalid" : ""} `} id="name" name="name"  {...register("name", { required: "نام کاربر الزامیست." })} />
+                                <input type="text" className={`form-control  ${errors?.name?.message ? "is-invalid" : ""} `} id="name" name="name"  {...register("name", { required: "نام مقاله الزامیست." })} />
                                 <div className="invalid-feedback">
                                     {errors?.name?.message}
                                 </div>
@@ -59,59 +71,51 @@ function CreateArticle() {
                     <div className="row">
                         <div className="col-12 ">
                             <div className="mb-3">
-                                <label htmlFor="email" className="form-label">سرتیتر</label>
-                                <input type="email" className={`form-control  ${errors?.email?.message ? "is-invalid" : ""} `} id="email" name="email"   {...register("email", { required: "ایمیل کاربر الزامیست." })} />
+                                <label htmlFor="shortdescription" className="form-label"> توضیحات کوتاه  </label>
+                                <input type="text" className={`form-control ${errors?.shortdescription?.message ? "is-invalid" : ""} `} id="shortdescription" name="shortdescription" {...register("shortdescription")} />
                                 <div className="invalid-feedback">
-                                    {errors?.email?.message}
+                                    {errors?.shortdescription?.message}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-12 ">
+                            <label htmlFor="showArticle" className="form-label">وضعیت مقاله</label>
+                            <select id="showArticle" name="showArticle" className="form-select" {...register("showArticle")}>
+                                <option value="1" selected >نمایش </option>
+                                <option value="0">عدم نمایش</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className="row mt-3">
+                        <div className="col-12 ">
                             <div className="mb-3">
-                                <label htmlFor="password" className="form-label">رمز عبور</label>
-                                <input type="password" className={`form-control ${errors?.password?.message ? "is-invalid" : ""} `} id="password" name="password" {...register("password", {
-                                    required: "لطفا رمز عبور کاربر را وارد کنید",
-                                    pattern: {
-                                        value:
-                                            /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/,
-                                        message:
-                                            "رمز عبور باید شامل حروف، عدد و حداقل یک کاراکتر خاص باشد",
-                                    },
-                                })} />
+                                <label htmlFor="image" className="form-label"> تصویر مقاله </label>
+                                <input type="file" name="image" {...register("image", { required: "لطفا تصویر مقاله را انتخاب کنید", })} className="form-control mb-4" />
                                 <div className="invalid-feedback">
-                                    {errors?.password?.message}
+                                    {errors?.image?.message}
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="col-12 my-4 ">
-                        {/* <Controller
-                            render={({ field }) => ( */}
-                                <CKEditor
-                                    editor={ClassicEditor}
-                                    data="متن مقاله خود را اینجا وارد کنید"
-                                    onReady={editor => {
-                                        // You can store the "editor" and use when it is needed.
-                                        console.log('Editor is ready to use!', editor);
-                                    }}
-                                    onChange={(event, editor) => {
-                                        const data = editor.getData();
-                                        setContent(data);
-                                        console.log(typeof(data));
-                                    }}
-                                    onBlur={(event, editor) => {
-                                        console.log('Blur.', editor);
-                                    }}
-                                    onFocus={(event, editor) => {
-                                        console.log('Focus.', editor);
-                                    }}
-                                />
-                            {/* )}
-                        /> */}
+                    <div className={`col-12 my-4 ${errors?.body?.message ? "is-invalid" : ""} `}>
+                        <CKEditor
+                            editor={ClassicEditor}
+                            data="<p>مقاله خود را وارد کنید</p>"
+                            onReady={(editor) => {
+                                const data = editor.getData();
+                                setValue("body", data);
+                            }}
+                            onChange={(event, editor) => {
+                                const data = editor.getData();
+                                setValue("body", data);
+                            }}
+                        />
+                        <div className="invalid-feedback">
+                            {errors?.body?.message}
+                        </div>
                     </div>
-
                     <button disabled={loading} className="btn btn-primary" type="submit">ذخیره</button>
                 </form>
 
@@ -122,5 +126,11 @@ function CreateArticle() {
     )
 }
 
-export default CreateArticle
+const mapState = (state) => {
+    return {
+        user: state?.user
+    }
+}
+
+export default connect(mapState, null)(CreateArticle)
 

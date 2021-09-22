@@ -1,19 +1,20 @@
 import http from "./base";
 
-async function getAllCategories() {
+async function getAllCategories(Page = 1, PerPage) {
   try {
-    const data = await http.get(`category`);
-    console.log("category",data);
+    console.log(`category?page${Page}&PerPage${PerPage}`);
+    const { data } = await http.get(`category?page=${Page}&PerPage=${PerPage}` );
+    console.log("category", data);
     return data;
   } catch (error) {
-    console.log(error);
+    console.log(error?.response?.data?.Message);
     throw error;
   }
 }
 async function getlistOfCategoriesWithNameAndid() {
   try {
-    const {data} = await http.get(`category/listofnameandid`);
-    console.log("category",data);
+    const { data } = await http.get(`category/listofnameandid`);
+    console.log("category", data);
     return data;
   } catch (error) {
     console.log(error);
@@ -31,6 +32,7 @@ async function getCategory(id) {
 
 async function createNewCategory(title, order, parentId) {
   try {
+    console.log({ title, order, parentId });
     const data = await http.post("category/create", { title, order, parentId });
     return data;
   } catch (error) {

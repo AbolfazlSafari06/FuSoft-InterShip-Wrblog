@@ -12,20 +12,20 @@ function Categories() {
     const [loading, setloading] = useState(false);
     const [message, setmessage] = useState("")
     const [Error, setError] = useState("");
+    const [totalArticleAmount, settotalArticleAmount] = useState(0)
+    const [Page, setPage] = useState(1)
 
 
     const { register, handleSubmit, reset, watch, getValues, formState: { errors } } = useForm();
 
-    const getCategories = async () => {
+    const getCategories = async (page, perpage) => {
         try {
             setloading(true);
-            const category = await categoryServie.getAllCategories();
-            console.log(category);
+            const category = await categoryServie.getAllCategories(page, 1);
+            settotalArticleAmount(category.lenght)
             if (Array.isArray(category.data)) {
                 setCategory(category.data);
             }
-            console.log(category);
-            console.log(Category.length);
             setloading(false);
         }
         catch (error) {
@@ -33,6 +33,17 @@ function Categories() {
             setloading(false);
         }
     };
+
+    const onPageClick = (page) => {
+        setPage(page)
+        getCategories(page, 4);
+    }
+
+    useEffect(() => {
+        getCategories(Page, 4);
+    }, [Page]);
+
+
     const renderContent = () => {
         if (loading) {
             return (
@@ -43,13 +54,13 @@ function Categories() {
         }
         if (Category.length > 0) {
             return (
-                <div>
-
+                <div className="overflow-auto">
                     <table className="table table-bordered table-striped table-hover text-nowrap">
                         <thead>
                             <tr>
-                                <td>#</td>
-                                <td>عنوان</td>
+                                <td className="text-center">#</td>
+                                <td className="text-center">عنوان</td>
+                                <td className="text-center">تعداد زیر دسته ها</td>
                                 <td className="text-center">عملیات</td>
                             </tr>
                         </thead>
@@ -58,8 +69,9 @@ function Categories() {
                                 return (
                                     <tr key={`category-${category.id}`}>
                                         <td>{Category.indexOf(category) + 1}</td>
-                                        <td>{category.title}</td>
-                                        <td className=" h-100">
+                                        <td className="text-center">{category.title}</td>
+                                        <td className="text-center">{category.children}</td>
+                                        <td className=" h-100 text-center">
                                             <Link to={`/panel/categories/${category.id}/edit`} className={"btn btn-success mx-2 ms-2"}  >ویرایش</Link>
                                             <button onClick={() => onDeleteuser(category.id)} className={"btn btn-danger mx-2 ms-2"}  >حدف</button>
                                         </td>
@@ -68,6 +80,8 @@ function Categories() {
                             })}
                         </tbody>
                     </table>
+                    <div className="my-4">
+                    </div>
                 </div>
             )
         } else {
@@ -78,23 +92,19 @@ function Categories() {
                 </div>
             )
         }
-    }
-
-    useEffect(() => {
-        getCategories();
-    }, []);
-
+    } 
     const onDeleteuser = async (id) => {
         try {
             setloading(true);
             if (window.confirm("آیا مطمئن هستید؟")) {
                 await categoryServie.deleteCategories(id);
-                await getCategories();
-                setmessage("کاربر با موفقیت پاک شد.")
+                await getCategories(Page, 4);
+                setmessage("دسته بندی با موفقیت پاک شد.")
                 setloading(false);
             }
+            setloading(false);
         } catch (error) {
-            setError("عملیات با موفقیت انجام نشد.")
+            setError("عملیات انجام نشد.")
             setloading(false);
         }
     }
@@ -113,6 +123,8 @@ function Categories() {
             <Alert type="success" message={message} onClose={() => setmessage("")} ></Alert>
             <Alert type="danger" message={Error} onClose={() => setError("")} ></Alert>
             {renderContent()}
+            <Pagination total={totalArticleAmount} currentPage={Page} perPage={1} onPageClick={onPageClick} />
+
         </div >
     );
 }
