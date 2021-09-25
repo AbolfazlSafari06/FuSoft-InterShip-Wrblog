@@ -21,7 +21,7 @@ function Article({ user }) {
   const getArticle = async (query = "", sort = "oldest", page = 1, perpage, categoryid) => {
     try {
       setLoadig(true)
-      let articless = await articleService.getArtilces(user.id,query, sort, page, perpage = 1, categoryid);
+      let articless = await articleService.getArtilces(user.id, query, sort, page, perpage = 1, categoryid);
       if (Array.isArray(articless.data)) {
         setArticles(articless.data);
         settotalArticleAmount(articless.lenght)
@@ -49,8 +49,10 @@ function Article({ user }) {
         setError("خطا در حذف مقاله")
       }
     }
-  } 
-
+  }
+  const truncate = (str) => {
+    return str.length > 35 ? str.substring(0, 35) + "..." : str;
+  }
   useEffect(() => {
     getArticle(searchValue?.query, searchValue?.sort, searchValue?.page, 30, searchValue?.categoryid);
   }, [searchValue]);
@@ -73,7 +75,7 @@ function Article({ user }) {
               <th className="text-center">عنوان مقاله</th>
               <th className="text-center">توضیحات</th>
               <th className="text-center">تاریخ ایجاد</th>
-              <th className="text-center">تاریخ آخرین بروزرسانی</th> 
+              <th className="text-center">تاریخ آخرین بروزرسانی</th>
               <th className="text-center">عملیات</th>
             </tr>
           </thead>
@@ -83,13 +85,15 @@ function Article({ user }) {
                 <tr key={Math.floor(Math.random() * 1000000)}>
                   <td className="text-center">{articles.indexOf(article) + 1}</td>
                   <td className="text-center">{article.title}</td>
-                  <td className="text-center">{article.shortDescription}</td>
+                  <td className="text-center" style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{
+                    truncate(article.shortDescription)
+                  }</td>
                   <td className="text-center">{article.createdAt}</td>
                   <td className="text-center">
                     {
                       article.createdAt === article.updatedAt ? <div>بدون بروزرسانی</div> : article.updatedAt
                     }
-                  </td> 
+                  </td>
                   <td className="text-center">
                     <button className="btn btn-danger btn-lg mx-2" onClick={() => deleteArticle(article.id)}>حذف</button>
                     <Link className="btn btn-success btn-lg mx-2" to={`/panel/article/${article.id}/edit`}  >ویرایش</Link>

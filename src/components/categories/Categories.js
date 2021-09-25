@@ -1,66 +1,49 @@
+import React, { memo, useState } from 'react';
+import { useEffect } from 'react';
+
+import categoryService from '../../services/CategoryService'
+import CategotyViewList from './CategotyViewList';
+import './style.scss'
 
 function Categories() {
-  return (
+  const [Categories, setCategories] = useState([])
+  const [loading, setLoading] = useState(false)
 
-    <div className={" body container-lg category-container"} >
-      <div className="row  row-cols-4 my-4 justify-content-center">
-        <div className="col-4  my-2 mx-2  category shadow ">
-          <p className={"fs-4 "}>
-            Category
-          </p>
-          <p className={"fs-6"}>
-          لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است
-          </p>
-          <button className={"btn   btn-outline-dark"}>مشاهده دسته بندی </button>
-        </div>
-        <div className="col-4 my-2 mx-2  text-center category shadow ">
-          <p className={"fs-4"}>
-            Category
-          </p>
-          <p className={"fs-6"}>
-          لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است
-          </p>
-          <button className={"btn   btn-outline-dark"}>مشاهده دسته بندی </button>
-        </div>
-        <div className="col-4  my-2 mx-2   category shadow ">
-          <p className={"fs-4"}>
-            Category
-          </p>
-          <p className={"fs-6"}>
-          لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است
-          </p>
-          <button className={"btn  btn-outline-dark"}>مشاهده دسته بندی </button>
-        </div>
-        <div className="col-4 my-2 mx-2  category shadow ">
-          <p className={"fs-4"}>
-            Category
-          </p>
-          <p className={"fs-6"}>
-          لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است
-          </p>
-          <button className={"btn   btn-outline-dark"}>مشاهده دسته بندی </button>
-        </div>
-        <div className="col-4  my-2 mx-2  category shadow ">
-          <p className={"fs-4"}>
-            Category
-          </p>
-          <p className={"fs-6"}>
-          لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است
-          </p>
-          <button className={"btn btn-outline-dark"}>مشاهده دسته بندی </button>
-        </div>
-        <div className="col-4 my-2 mx-2  category shadow ">
-          <p className={"fs-4"}>
-            Category
-          </p>
-          <p className={"fs-6"}>
-          لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است
-          </p>
-          <button className={"btn btn-outline-dark"}>مشاهده دسته بندی </button>
-        </div>
+  const getCategories = async (perpage = 8) => {
+    try {
+      setLoading(true)
+      const data = await categoryService.getCategoryViewList(perpage)
+      if (Array.isArray(data.data)) {
+        setCategories(data.data)
+      }
+      setLoading(false)
+    } catch (error) {
+      alert("مشکل در دریافت اطلاعات")
+      console.log(error);
+      setLoading(false)
+    }
+  }
+  useEffect(() => {
+    getCategories(8)
+  }, [])
+
+  return (
+    <div className={"container-md "} >
+      <h3 className=" w-100 text-center  mb-4">
+        دسته بندی ها
+        <hr id="hrD" className="style13" />
+      </h3>
+      <div className="category-container">
+        {
+          Categories.map(category => {
+            return (
+              <CategotyViewList category={category} />
+            )
+          })
+        }
       </div>
     </div>
   );
 }
 
-export default Categories;
+export default memo(Categories);

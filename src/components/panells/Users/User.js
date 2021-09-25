@@ -124,8 +124,8 @@ function User() {
         <div className="col-2 offset-8">
           <h2>کاربران</h2>
         </div>
-        <div className="col-2 text-center">
-          <Link to="/panel/users/create" className="btn btn-primary">ایجاد کاربر جدید </Link>
+        <div className="col-2 mb-3 text-center">
+          <Link to="/panel/users/create" className="btn btn-primary ">ایجاد کاربر جدید </Link>
         </div>
         <div>
           <form className=" form-inline row gy-2 gx-3 align-items-center" onSubmit={handleSubmit(onFilterSubmit)}>

@@ -13,16 +13,16 @@ function Login() {
 
     const onLogin = async (form) => {
 
-        try {
-            console.log(form.email, form.password);
+        try { 
             setLoading(true);
             const data = await authservice.Login(form.email, form.password)
             console.log("data from  login comp => ", data);
             setLoading(false);
 
         } catch (error) {
-            setError("خطا در ورود کاربر");
+            setError(error);
             console.log(error);
+            setLoading(false); 
         }
 
     }
@@ -47,12 +47,11 @@ function Login() {
                         />
                         <div className="invalid-feedback">{errors?.password?.message}</div>
                     </div>
-                    <button type="submit" className="btn btn-primary btn-block">
+                    <button disabled={Loading} type="submit" className="btn btn-primary btn-block">
                         ورود
                     </button>
                 </form>
-                <div className="text-center fs-6 py-3">
-                    <Link to="/auth/login"> ورود</Link>
+                <div className="text-center fs-6 py-3"> 
                     <Link id="registerlink" to="/auth/register"> ثبت نام</Link>
                 </div>
             </div>

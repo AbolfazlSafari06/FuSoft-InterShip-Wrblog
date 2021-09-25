@@ -1,0 +1,31 @@
+.comments {
+  background-color: #eeeeeec2;
+  // font-weight: 500;
+  margin-right: 0;
+  margin-left: 0;
+  font-size: larger;
+  border-radius: 3px;
+  border: 1px solid #eeeeeec2;   
+}
+.comment {
+  background-color: white;
+  font-weight: 500;
+  font-size: large;
+  border-radius: 3px;
+  width: 80%; 
+}
+.user-logo {
+  border-radius: 100%;
+  width: 4rem;
+  height: 4rem;
+}
+.article-item {
+  line-height: 2.1;
+}
+.createcomment {
+  background-color: #eeeeeec2;
+  padding: 1.5rem;
+  margin-right: 0;
+  margin-left: 0;
+  border: 1px solid #eeeeeec2;  
+}

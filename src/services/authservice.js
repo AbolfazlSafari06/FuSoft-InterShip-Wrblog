@@ -12,8 +12,8 @@ async function Login(email, password) {
         store.dispatch(reduxLogin(data));
         return data;
     } catch (error) {
-        console.log(error);
-        throw error;
+        console.log(error.response?.data?.Message);
+        throw error.response?.data?.Message;
     }
 }
 
@@ -26,17 +26,18 @@ async function Register(name, email, password, passwordConfirm) {
         store.dispatch(reduxRegister(data));
         return data;
     } catch (error) {
-        console.log(error);
-        throw error;
+        console.log(error.response?.data?.Message);
+        throw error.response?.data?.Message;
     }
 }
 function Logout(data) {
+    console.log(data);
     try {
         store.dispatch(reduxLogout(data));
         return data;
     } catch (error) {
-        console.log(error);
-        throw error;
+        console.log(error.response?.data?.Message);
+        throw error.response?.data?.Message;
     }
 }
 function isLoggedIn(data) {
@@ -44,7 +45,7 @@ function isLoggedIn(data) {
         const state = store.getState();
         return !!state?.user?.token;
     } catch (error) {
-        console.log(error);
+        console.log(error.response?.data?.Message);
         return false;
     }
 }

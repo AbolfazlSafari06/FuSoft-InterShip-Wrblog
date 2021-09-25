@@ -14,7 +14,7 @@ async function getArtilces(userid = "",query = "", sort = "", page = 1, perPage 
 }
 async function getArtilcesView(count) {
   try {
-    const { data } = await http.get(`article/articleView?count=${count}`); 
+    const { data } = await http.get(`article/view?count=${count}`); 
     return data;
   } catch (error) {
     console.log(error.response?.data?.Message);
@@ -57,6 +57,7 @@ async function deleteArticle(id) {
 }
 async function EditArticle(Id, Title, shortDescription, Body, createdAt, Status, userId, categoryId) {
   try {
+    console.log("difygsd");
     console.log( { Id, Title, Body, shortDescription, createdAt ,updatedAt:null, Status,  categoryId });
     const { data } = await http.post(`article/edit`, { Id, Title, Body, shortDescription, createdAt ,updatedAt:null, Status,  categoryId });
     return data;
@@ -67,7 +68,6 @@ async function EditArticle(Id, Title, shortDescription, Body, createdAt, Status,
 async function getArticel(Id) {
   try {
     const { data } = await http.get(`article/${Id}`);
-    console.log(data);
     return data;
   } catch (error) {
     throw error;

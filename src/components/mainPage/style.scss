@@ -1,0 +1,26 @@
+.articleViewlist {
+  padding: 1.5rem;
+  max-height: min-content;
+  overflow-y: hidden;
+  font-size: large;
+  font-weight: 400;
+  transition: all ease 0.4s;
+  // background-color: red;
+}
+.articleViewlist:hover{
+    background-color: rgba(230, 225, 225, 0.212);
+}
+hr {
+  border-top: 1px solid rgb(58, 57, 57);
+}
+#headerid {
+  border-top: 2.5px solid rgb(58, 57, 57);
+}
+.articlebody {
+  cursor: pointer;
+  color: black;
+}
+.articlebody:hover {
+  cursor: pointer;
+  color: black;
+}

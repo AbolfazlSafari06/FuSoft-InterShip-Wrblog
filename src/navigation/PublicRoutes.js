@@ -9,6 +9,7 @@ import Header from "../common/Header";
 import Footer from "../common/Footer/Footer";
 import Route from "./Route";
 import ArticleVew from './../View/ArticleVew';
+import CategoryView from '../View/CategoryView';
 
 
 function PublicRoutes() {
@@ -28,8 +29,11 @@ function PublicRoutes() {
                 <Route path="/about">
                     <About />
                 </Route>
-                <Route path="/article/view/:id">
+                <Route exact path="/article/view/:id">
                     <ArticleVew />
+                </Route>
+                <Route exact path="/category/view/:id">
+                    <CategoryView />
                 </Route>
             </Switch>
             <Footer />

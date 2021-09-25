@@ -1,7 +1,19 @@
-.header{
-    background-color: blue;
+.header {
 }
-.dropdown-menu{  
-    background-color: #d8d8d8;
-    color: white;
+.dropdown-menu {
+  background-color: #d8d8d8;
+  color: white;
+}
+#elementID {
+  color: rgb(25, 109, 219);
+  text-shadow: 1px 1px 1px #ccc;
+  font-size: 1.5em;
+}
+@media only screen and (min-width: 972px) {
+  #elementID {
+    display: none;
+  }
+  #dropdownitem {
+    margin-top: 1.5rem;
+  }
 }

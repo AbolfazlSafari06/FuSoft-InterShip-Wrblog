@@ -16,6 +16,7 @@ function CreateUser() {
         try {
             if (!loading) {
                 setloading(true);
+                console.log(date)
                 var date = await usersService.createNewUser(date.name, date.email, date.password, date.IsAdmin)
                 reset();
                 setmessage("کاربر با موفقیت ایجاد شد.")
@@ -43,10 +44,13 @@ function CreateUser() {
                         <div className="col-12 col-md-6 ">
                             <div className="mb-3">
                                 <label htmlFor="name" className="form-label">نام و نام خوانوادگی</label>
-                                <input type="text" className={`form-control  ${errors?.name?.message ? "" : "is-invalid"} `} id="name" name="name"  {...register("name", { required: "نام کاربر الزامیست." })} />
-                                <div className="invalid-feedback">
-                                    {errors?.name?.message}
-                                </div>
+                                <input type="text" className={`form-control  ${errors?.name?.message ? "is-invalid" : ""} `} id="name" name="name"  {...register("name", { required: "نام کاربر الزامیست." })} />
+                                {
+                                    errors?.name?.message &&
+                                    <div className="invalid-feedback">
+                                        {errors?.name?.message}
+                                    </div>
+                                }
                             </div>
                         </div>
                         <div className="col-12 col-md-6">
@@ -83,6 +87,12 @@ function CreateUser() {
                                         آیا مدیر است؟
                                     </label>
                                 </div>
+                                {/* <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="IsAdminCheck"  />
+                                    <label class="form-check-label" for="IsAdminCheck">
+                                        آیا مدیر است؟
+                                    </label>
+                                </div> */}
                             </div>
                         </div>
                     </div>

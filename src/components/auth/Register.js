@@ -1,10 +1,12 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import './style.scss';
-import { useForm } from 'react-hook-form';
-import Alert from '../../common/Alert/Alert';
-import { useState } from 'react';
 import authservice from '../../services/authservice';
+import Alert from '../../common/Alert/Alert';
+import './style.scss';
+import Circles from './Circles.gif'
+
+import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom'
+import { useState } from 'react';
+import React from 'react'
 function Register() {
     const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
     const [Loading, setLoading] = useState(false);
@@ -15,11 +17,12 @@ function Register() {
             setLoading(true);
             const data = await authservice.Register(form.name, form.email, form.password, form.repassword)
             console.log(data);
-            setLoading(true);
+            setLoading(false);
 
         } catch (error) {
-            setError("خطا در ثبت نام کاربر");
+            setError(error);
             console.log(error);
+            setLoading(false); 
         }
 
     }
@@ -57,18 +60,24 @@ function Register() {
                         })} id="repassword" />
                         <div className="invalid-feedback">{errors?.repassword?.message}</div>
                     </div>
-                    <button type="submit" className="btn btn-primary btn-block">
+                    <button disabled={Loading} type="submit" className="btn btn-primary btn-block">
                         ورود
                     </button>
                 </form>
                 <div className="text-center fs-6 py-3">
-                    <Link to="/auth/Register"> ثبت نام  </Link>
+                    <Link to="/auth/Login"> ورود  </Link>
                 </div>
             </div>
             <div className="my-3 text-white text-center   fs-6 fc-primary">
                 <i className="fa fa-home"></i>
                 <Link className=" text-white " to="/mainpage">  بازگشت به خانه </Link>
             </div>
+            {
+                Loading &&
+                <div>
+                    <img src={Circles} alt="loading..." />
+                </div>
+            }
         </div>
     )
 }

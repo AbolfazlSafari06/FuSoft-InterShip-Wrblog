@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function Pagination({ total, perPage, currentPage, onPageClick }) { 
-    // console.log("total",total);
+    console.log("total",total);
     const pages = Math.floor(total / perPage); 
-    // console.log("pages",pages);
+    console.log("pages",pages);
 
     const renderPages = () => {
         return [...Array(pages)].map((item, index) => {

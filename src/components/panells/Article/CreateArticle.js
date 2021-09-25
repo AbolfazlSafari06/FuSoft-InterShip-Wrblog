@@ -18,14 +18,14 @@ function CreateArticle({ user }) {
     const [parentCategoryId, setparentCategoryId] = useState()
     const [loading, setloading] = useState(false);
 
-    const { register, setValue, control, reset, handleSubmit, formState: { errors } } = useForm();
+    const { register, setValue, getValues, control, reset, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = async (data) => {
         console.log(data);
         try {
             if (!loading) {
                 setloading(true);
                 console.log(data);
-                var date = await articleService.createNewArticle(data.name, data.shortdescription, data.body, +data.showArticle, user.id, parentCategoryId)
+                // var date = await articleService.createNewArticle(data.title, data.shortdescription, data.body, +data.showArticle, user.id, parentCategoryId)
                 await articleService.uploadImage(data.image[0])
                 setmessage("مقاله با موفقیت ایجاد شد.")
                 reset();
@@ -39,10 +39,14 @@ function CreateArticle({ user }) {
     };
 
     useEffect(() => {
+        console.log(errors?.title?.message);
+
+        console.log("user", user);
         register("body", {
             required: true,
         });
-    }, []);
+        reset();
+    }, [getValues("title")]);
 
     return (
         <div>
@@ -60,10 +64,10 @@ function CreateArticle({ user }) {
                     <div className="row">
                         <div className="col-12 ">
                             <div className="mb-3">
-                                <label htmlFor="name" className="form-label">نام مقاله</label>
-                                <input type="text" className={`form-control  ${errors?.name?.message ? "is-invalid" : ""} `} id="name" name="name"  {...register("name", { required: "نام مقاله الزامیست." })} />
+                                <label htmlFor="title" className="form-label">نام مقاله</label>
+                                <input type="text" className={`form-control  ${errors?.name?.message ? "" : "is-invalid"} `} id="title" name="title"  {...register("title", { required: "نام مقاله الزامیست.", maxLength: (200) })} />
                                 <div className="invalid-feedback">
-                                    {errors?.name?.message}
+                                    {errors?.title?.message}
                                 </div>
                             </div>
                         </div>
@@ -72,7 +76,7 @@ function CreateArticle({ user }) {
                         <div className="col-12 ">
                             <div className="mb-3">
                                 <label htmlFor="shortdescription" className="form-label"> توضیحات کوتاه  </label>
-                                <input type="text" className={`form-control ${errors?.shortdescription?.message ? "is-invalid" : ""} `} id="shortdescription" name="shortdescription" {...register("shortdescription")} />
+                                <input type="text" className={`form-control ${errors?.shortdescription?.message ? "" : "is-invalid"} `} id="shortdescription" name="shortdescription" {...register("shortdescription", { required: "نام مقاله الزامیست.", maxLength: 1000 })} />
                                 <div className="invalid-feedback">
                                     {errors?.shortdescription?.message}
                                 </div>

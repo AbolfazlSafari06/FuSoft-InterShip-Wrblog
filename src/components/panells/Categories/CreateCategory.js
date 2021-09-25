@@ -52,7 +52,7 @@ function CreateCategory() {
                 <GetParentCategory  title={"دسته بندی پدر را انتخاب کنید"} setparentId={setparentId} />
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <h4 className="my-4">نام دسته بندی را انتخاب کنید : </h4>
-                    <input type="text" className={`form-control $${errors?.categoryName?.message ? "is-invalid" : ""} `} id="categoryName" name="categoryName" placeholder="نام دسته بندی"  {...register("categoryName", { required: "نام دسته بندی الزامیست", maxLength: 100, minLength: 3 })} />
+                    <input type="text" className={`form-control $${errors?.categoryName?.message ? "is-invalid" : ""} `} id="categoryName" name="categoryName" placeholder="نام دسته بندی"  {...register("categoryName", { required: "نام دسته بندی الزامیست", maxLength: 250, minLength: 3 })} />
                     <div className="invalid-feedback">
                         {errors?.categoryName?.message}
                     </div>

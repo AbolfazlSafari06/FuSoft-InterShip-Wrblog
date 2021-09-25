@@ -15,10 +15,9 @@ function EditArticle({ user }) {
     const { id } = useParams();
     const [editData, setEditData] = useState()
     const [loading, setloading] = useState(false)
-    const [parentId, setparentId] = useState()
+    const [categoryId, setCategoryId] = useState()
     const [message, setmessage] = useState("")
-    const [Error, setError] = useState()
-
+    const [Error, setError] = useState() 
     const [category, setcategory] = useState()
 
     const { register, setValue, control, handleSubmit, formState: { errors } } = useForm();
@@ -28,6 +27,7 @@ function EditArticle({ user }) {
         try {
             setloading(true)
             const article = await articleService.getArticel(id) 
+            setCategoryId(article.CategoryId)
             setcategory(article)
             setValue("title", article?.title)
             setValue("shortDescription", article?.shortDescription)
@@ -44,9 +44,9 @@ function EditArticle({ user }) {
     const onSubmit = async (data) => {
         setloading(true)
         try {
-            console.log("data",data); 
-            await articleService.EditArticle(category.id, data.title, data.shortDescription, data.body,category.createdAt,  data.status, data.userId, (parentId ?? category.id))
-            // console.log(parentId ?? category.id)
+             
+            // console.log("data",data); 
+            await articleService.EditArticle(category.id, data.title, data.shortDescription, data.body,category.createdAt,  data.status, data.userId,categoryId)
             // console.log(category.id, data.title, data.shortDescription, data.body, data.status, data.userId, );
             setmessage("ویرایش با موفقیت ثبت شد")
             setloading(false)
@@ -73,7 +73,7 @@ function EditArticle({ user }) {
             </div>
             <div className="container" >
                 <div className="row my-2">
-                    <GetParentCategory title="دسته بندی پدر را انتخاب کنید" setparentId={setparentId} />
+                    <GetParentCategory title="دسته بندی پدر را انتخاب کنید" setparentId={setCategoryId} />
                 </div>
             </div>
             <form className="container" onSubmit={handleSubmit(onSubmit)}>

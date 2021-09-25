@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useEffect } from 'react';
 import Swal from 'sweetalert2'
-
-// CommonJS
+import { connect } from 'react-redux';
 
 import CommentsService from './../../../services/CommentsService';
 import Pagination from '../../../common/Pagination';
@@ -12,7 +11,7 @@ import usersService from '../../../services/usersService';
 
 
 
-function Comments() {
+function Comments({ user }) {
   const Swal = require('sweetalert2')
   const { register, handleSubmit, reset, setValue, watch, getValues, formState: { errors } } = useForm();
   const [loading, setLoading] = useState(false)
@@ -24,16 +23,15 @@ function Comments() {
   const GerComments = async (filter) => {
     try {
       setLoading(true)
-      console.log("getcomments Go");
-      const Comments = await CommentsService.getComments(filter, page, 30);
+      const Comments = await CommentsService.getComments(filter, page, 30, user.id);
+      console.log(Comments);
       if (Array.isArray(Comments.data)) {
         setComments(Comments.data);
         setotaComments(Comments.lenght)
-        console.log("Comments", Comments);
       }
       setLoading(false)
     } catch (error) {
-      alert(error.response?.data?.Message)
+      console.log(error);
       setLoading(false);
     }
   }
@@ -53,6 +51,7 @@ function Comments() {
       setLoading(false)
     }
   }
+
   const confirmComment = async (id) => {
     try {
       setLoading(true)
@@ -138,6 +137,7 @@ function Comments() {
               <thead>
                 <tr>
                   <td className="text-center">نظر</td>
+                  <td className="text-center">نام نظر دهنده</td>
                   <td className="text-center">وضعیت</td>
                   <td className="text-center">عملیات</td>
                 </tr>
@@ -148,6 +148,7 @@ function Comments() {
                     return (
                       <tr key={comment.id} >
                         <td className="text-center">{comment.body}</td>
+                        <td className="text-center">{comment.fullName}</td>
                         <td className="text-center ">
                           {
                             comment.isPublished === 0 ? <span class="badge bg-info text-dark ">نامشخص</span>
@@ -156,9 +157,9 @@ function Comments() {
                           }
                         </td>
                         <td className="text-center">
-                          <button onClick={() => confirmComment(comment.id)} className={`btn btn-success p-2 mx-2 fa fa-check-square ${comment.isPublished === 0 ? "" : "d-none"}`}> </button>
+                          <button onClick={() => confirmComment(comment.id)} className={`btn btn-success p-2 mx-2 fa fa-check-square ${comment.isPublished === 0 ? "" : "d-none"}`}></button>
                           <button onClick={() => deleteComment(comment.id)} className="btn btn-danger p-2 mx-2 fa fa-window-close"> </button>
-                          <button onClick={() => showArticleInfo(comment.articleId, comment.userId)} className="btn btn-primary p-2 btn-sm mx-2 "> مشاهده مقاله  </button>
+                          <button onClick={() => showArticleInfo(comment.articleId, comment.userId)} className="btn btn-primary p-2 btn-sm mx-2 "> مشاهده جزئیات  </button>
                         </td>
                       </tr>
                     )
@@ -175,4 +176,11 @@ function Comments() {
   )
 }
 
-export default Comments
+const mapState = (state) => {
+  return {
+    user: state?.user
+  }
+}
+
+
+export default connect(mapState, null)(Comments)
